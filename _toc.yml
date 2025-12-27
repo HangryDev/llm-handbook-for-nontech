@@ -21,4 +21,10 @@ parts:
     sections:
     - glob: _contents/llm-engineering/Newly Discovered/sections/**
 
+- caption: Newly Discovered - Case Study
+  chapters:
+  - file: _contents/llm-engineering/news/case-study/readme.md
+    sections:
+    - glob: _contents/llm-engineering/news/case-study/sections/**
+
 
