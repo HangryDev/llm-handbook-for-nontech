@@ -19,34 +19,34 @@ FEED_CONFIG = {
         "title": "🛠️ Practical (Prompt, Agent, MCP)",
         "color": "#3498db",
         "feeds": [
-            {"name": "Latent Space", "url": "https://latent.space/feed", "count": 3},
-            {"name": "Ahead of AI", "url": "https://magazine.sebastianraschka.com/feed", "count": 3},
-            {"name": "Anthropic News", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml", "count": 3},
-            {"name": "Dev.to AI", "url": "https://dev.to/feed/tag/ai", "count": 5},
+            {"name": "Latent Space", "url": "https://latent.space/feed", "count": 3, "badge_color": "#8e44ad"},
+            {"name": "Ahead of AI", "url": "https://magazine.sebastianraschka.com/feed", "count": 3, "badge_color": "#2c3e50"},
+            {"name": "Anthropic News", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml", "count": 3, "badge_color": "#d35400"},
+            {"name": "Dev.to AI", "url": "https://dev.to/feed/tag/ai", "count": 5, "badge_color": "#000000"},
         ]
     },
     "business": {
         "title": "💼 Business Cases",
         "color": "#e67e22",
         "feeds": [
-            {"name": "Harvard Business Review", "url": "http://feeds.hbr.org/harvardbusiness", "count": 3},
-            {"name": "The Sequence", "url": "https://thesequence.substack.com/feed", "count": 3},
+            {"name": "Harvard Business Review", "url": "http://feeds.hbr.org/harvardbusiness", "count": 3, "badge_color": "#c0392b"},
+            {"name": "The Sequence", "url": "https://thesequence.substack.com/feed", "count": 3, "badge_color": "#27ae60"},
         ]
     },
     "big_tech": {
         "title": "🏢 Big Tech News",
         "color": "#e74c3c",
         "feeds": [
-            {"name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml", "count": 3},
-            {"name": "Google AI Blog", "url": "http://googleaiblog.blogspot.com/atom.xml", "count": 3},
+            {"name": "OpenAI Blog", "url": "https://openai.com/blog/rss.xml", "count": 3, "badge_color": "#10a37f"},
+            {"name": "Google AI Blog", "url": "http://googleaiblog.blogspot.com/atom.xml", "count": 3, "badge_color": "#4285f4"},
         ]
     },
     "insights": {
         "title": "💡 Insights (General)",
         "color": "#27ae60",
         "feeds": [
-            {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/", "count": 3},
-            {"name": "Ben's Bites", "url": "https://www.bensbites.com/feed", "count": 3},
+            {"name": "MIT Technology Review", "url": "https://www.technologyreview.com/feed/", "count": 3, "badge_color": "#000000"},
+            {"name": "Ben's Bites", "url": "https://www.bensbites.com/feed", "count": 3, "badge_color": "#16a085"},
         ]
     }
 }
@@ -191,83 +191,55 @@ def fetch_feed(feed_url, count=3):
         return []
 
 
-def generate_markdown(news_by_category):
-    """카테고리별 뉴스를 마크다운으로 생성"""
-
+def generate_full_markdown_for_category(category_id, category_data, source_articles_map):
+    """
+    Generate complete markdown file content for a single category using list layout.
+    source_articles_map: { 'FeedName': [article1, article2...], ... }
+    """
     current_date = datetime.now().strftime("%Y-%m-%d")
+    category_title = category_data['title']
 
-    md_content = f"""# 📚 Case Study - LLM News Digest
-
-**Latest updates from the LLM ecosystem, curated by category**
+    md_content = f"""# {category_title}
 
 *Last Updated: {current_date}*
 
 ---
 
 """
+    
+    all_articles = []
+    for source_name, articles in source_articles_map.items():
+        # Find font color
+        feed_color = "#6c757d"
+        for feed in category_data['feeds']:
+            if feed['name'] == source_name:
+                feed_color = feed.get('badge_color', "#6c757d")
+                break
+        
+        for article in articles:
+            article['source_name'] = source_name
+            article['feed_color'] = feed_color
+            all_articles.append(article)
+    
+    # Sort by date descending
+    all_articles.sort(key=lambda x: x['date'], reverse=True)
 
-    # 각 카테고리별로 뉴스 정리
-    for category_id, category_data in FEED_CONFIG.items():
-        if category_id not in news_by_category or not news_by_category[category_id]:
-            continue
+    for article in all_articles:
+        # content preparation
+        title = article['title'].replace('"', '\\"').replace('[', '\\[').replace(']', '\\]')
+        summary = article['summary'].replace('\n', ' ').strip()
+        url = article['url']
+        source_name = article['source_name']
+        feed_color = article['feed_color']
+        
+        # Simple list format with colored source badge
+        md_content += f"- <span style='background-color: {feed_color}; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>{source_name}</span> **[{title}]({url})** - {summary}\n\n"
 
-        category_title = category_data['title']
-        category_color = category_data['color']
-
-        md_content += f"\n## {category_title}\n\n"
-        md_content += "```{raw} html\n"
-        md_content += f'<div style="font-family: Arial, sans-serif; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">\n\n'
-
-        # 카테고리 내 뉴스 목록
-        for source_name, articles in news_by_category[category_id].items():
-            for article in articles:
-                date_str = article['date'].strftime("%Y.%m.%d")
-
-                # 이미 clean_html로 정리되었으므로 추가 이스케이프 불필요
-                # 하지만 안전을 위해 기본적인 HTML 특수문자만 이스케이프
-                title = article['title'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-                summary = article['summary'].replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-
-                md_content += f'''  <!-- {source_name} -->
-  <div style="background: white; border-left: 4px solid {category_color}; border-radius: 8px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-      <span style="background: {category_color}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem;">{source_name}</span>
-      <span style="color: #666; font-size: 0.85rem;">📅 {date_str}</span>
-    </div>
-    <a href="{article['url']}" target="_blank" style="text-decoration: none;">
-      <b style="font-size: 1rem; color: #333;">{title}</b>
-    </a>
-    <p style="color: #666; font-size: 0.9rem; margin-top: 8px; margin-bottom: 0;">{summary}</p>
-  </div>
-
-'''
-
-        md_content += "</div>\n```\n\n"
-
-    # Footer
-    md_content += """---
-
-## 📖 About This Digest
-
-This digest is automatically generated from curated RSS feeds across four categories:
-
-1. **Practical**: Hands-on tutorials, prompts, agents, and MCP implementations
-2. **Business**: Use cases, ROI studies, and industry applications
-3. **Big Tech**: Official announcements from OpenAI, Google, Anthropic, etc.
-4. **Insights**: Research papers, trend analysis, and thought leadership
-
-### Data Sources
-
-- 🔵 Practical: Latent Space, Ahead of AI, Anthropic News, Dev.to
-- 🟠 Business: Harvard Business Review, The Sequence
-- 🔴 Big Tech: OpenAI Blog, Google AI Blog
-- 🟢 Insights: MIT Technology Review, Ben's Bites
-
+    # Add Footer
+    md_content += """
 ---
-
 *Generated by [LLM Handbook News Digest](https://github.com/springCoolers/llm-handbook)*
 """
-
     return md_content
 
 
@@ -282,7 +254,7 @@ def main():
 
     # 카테고리별로 RSS 피드 수집
     for category_id, category_data in FEED_CONFIG.items():
-        print(f"\n📂 Processing category: {category_data['title']}")
+        print(f"\\n📂 Processing category: {category_data['title']}")
 
         for feed_config in category_data['feeds']:
             feed_name = feed_config['name']
@@ -299,23 +271,104 @@ def main():
             else:
                 print(f"     ⚠️  No articles found")
 
-    print(f"\n{'=' * 60}")
+    print(f"\\n{'=' * 60}")
     print(f"✅ Total: {total_articles} articles collected")
-    print(f"{'=' * 60}\n")
+    print(f"{'=' * 60}\\n")
 
-    # 마크다운 생성
-    print("📝 Generating markdown...")
-    md_content = generate_markdown(news_by_category)
+    # 마크다운 파일 생성 (sections 폴더)
+    sections_dir = "/home/robert/work/llm_knowledge_foundation/llm-handbook/_contents/llm-engineering/news/case-study/sections"
+    if not os.path.exists(sections_dir):
+        os.makedirs(sections_dir)
+        print(f"📂 Created directory: {sections_dir}")
 
-    # 파일 저장
-    output_path = "/home/robert/work/llm_knowledge_foundation/llm-handbook/_contents/llm-engineering/news/case-study/readme.md"
+    # File mapping
+    file_mapping = {
+        "practical": "practical.md",
+        "business": "business-cases.md",
+        "big_tech": "bigtech.md",
+        "insights": "insight.md"
+    }
 
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(md_content)
+    print("📝 Generating markdown files...")
 
-    print(f"✅ Markdown saved to: {output_path}")
-    print("\n" + "=" * 60)
-    print("✅ Case Study News Digest generation complete!")
+    for category_id, category_data in FEED_CONFIG.items():
+        if category_id not in news_by_category or not news_by_category[category_id]:
+            print(f"  ⏭️  Skipping empty category: {category_id}")
+            continue
+            
+        md_content = generate_full_markdown_for_category(category_id, category_data, news_by_category[category_id])
+        
+        # Use mapped filename, default to category_id.md if not found (fallback)
+        filename = file_mapping.get(category_id, f"{category_id}.md")
+        output_path = os.path.join(sections_dir, filename)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(md_content)
+        
+        print(f"  ✅ Saved {filename}")
+
+    print("\\n" + "=" * 60)
+    print("✅ All section files generated successfully!")
+    
+    # Generate Index Readme
+    readme_path = os.path.join(os.path.dirname(sections_dir), "readme.md")
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    
+    readme_content = f"""# 📚 Case Study - LLM News Digest
+
+**Latest updates from the LLM ecosystem, curated by category**
+
+*Last Updated: {current_date}*
+
+````{{grid}} 1 2 2 4
+:gutter: 3
+
+```{{grid-item-card}}  🛠️ Practical
+:link: sections/practical
+:link-type: doc
+:class-header: sd-bg-success sd-text-white
+
+**Prompt, Agent, MCP**
+Hands-on tutorials & implementations
+```
+
+```{{grid-item-card}} 💼 Business Cases
+:link: sections/business-cases
+:link-type: doc
+:class-header: sd-bg-warning sd-text-white
+
+**Industry Applications**
+ROI studies & Use cases
+```
+
+```{{grid-item-card}} 🏢 Big Tech News
+:link: sections/bigtech
+:link-type: doc
+:class-header: sd-bg-primary sd-text-white
+
+**Major Announcements**
+OpenAI, Google, Anthropic
+```
+
+```{{grid-item-card}} 💡 Insights
+:link: sections/insight
+:link-type: doc
+:class-header: sd-bg-info sd-text-white
+
+**Research & Trends**
+Analysis & Thought Leadership
+```
+````
+
+---
+
+*Generated by [LLM Handbook News Digest](https://github.com/springCoolers/llm-handbook)*
+"""
+
+    with open(readme_path, 'w', encoding='utf-8') as f:
+        f.write(readme_content)
+        
+    print(f"✅ Index README generated at: {readme_path}")
     print("=" * 60)
 
 
