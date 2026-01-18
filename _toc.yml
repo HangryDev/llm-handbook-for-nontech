@@ -11,9 +11,10 @@ parts:
 
 - caption: LLM Engineering Basics
   chapters:
-  - file: _contents/llm-engineering/0. Prologue - What is LLM/0. Prologue - What is LLM.md
+  - file: _contents/llm-engineering/ai-Evaluation[Example-Chapter]/ai-evaluation.md
     sections:
-    - glob: _contents/llm-engineering/0. Prologue - What is LLM/sections/Template example.md
+    - glob: _contents/llm-engineering/ai-Evaluation[Example-Chapter]/sections/**
+
     
 - caption: Newly Discovered
   chapters:
