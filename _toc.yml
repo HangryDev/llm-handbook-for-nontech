@@ -11,9 +11,9 @@ parts:
 
 - caption: LLM Engineering Basics
   chapters:
-  - file: _contents/llm-engineering/ai-Evaluation[Example-Chapter]/ai-evaluation.md
+  - file: _contents/llm-engineering/AI Evaluation/AI Evaluation.md
     sections:
-    - glob: _contents/llm-engineering/ai-Evaluation[Example-Chapter]/sections/**
+    - glob: _contents/llm-engineering/AI Evaluation/sections/**
 
     
 - caption: Newly Discovered
