@@ -3,6 +3,19 @@
 *Last Updated: 2026-01-09*
 
 ---
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Dropbox Made AI Evaluation Work at Scale](https://www.datatinkerer.io/p/how-dropbox-made-ai-evaluation-work-at-scale)** - Dropbox built a system where every prompt, retriever, and model must prove its value before it can be merged.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Netflix Used Deep Learning to Slash Video Quality Control Time by 90%](https://www.datatinkerer.io/p/how-netflix-used-deep-learning-to-slash-video-quality-control-time-by-90)** - Netflix combined neural networks, synthetic pixel generation, and a smarter pipeline to drastically reduce video quality control time.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Uber Built an AI Agent That Answers Financial Questions in Slack](https://www.datatinkerer.io/p/how-uber-built-an-ai-agent-that-answers-financial-questions-in-slack)** - Uber’s “Finch” finds the right data, runs the query, and delivers secure, real-time answers directly in Slack.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Target Used GenAI to Lift Sales by 9% Across 100K+ Products](https://www.datatinkerer.io/p/how-target-used-genai-to-lift-sales-by-9-across-100k-products)** - Target used LLMs to recommend better add-ons, boosting engagement (+11%) and relevance (+12%) while lifting sales by 9%.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How DoorDash Used LLMs to Trigger 30% More Relevant Results](https://www.datatinkerer.io/p/how-doordash-used-llms-to-trigger-30-more-relevant-results)** - DoorDash improved relevance by combining knowledge graphs, tight vocabularies, and “just enough” AI.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Uber Cut Invoice Handling Time by 70% with GenAI (Without Ditching Humans)](https://www.datatinkerer.io/p/how-uber-cut-invoice-handling-time-by-70-with-genai)** - Uber turned a messy mix of bots and spreadsheets into a scalable pipeline powered by LLMs and human-in-the-loop design.
+
+- <span style='background-color: #27ae60; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Data Tinkerer</span> **[How Reddit Scans 1M+ Images a Day to Flag NSFW Content Using Deep Learning](https://www.datatinkerer.io/p/how-reddit-scans-1m-images-a-day-to-flag-nsfw-content-using-deep-learning)** - Reddit uses deep learning to scan over one million images per day to detect and flag NSFW content.
 
 - <span style='background-color: #c0392b; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; font-weight: bold;'>Harvard Business Review</span> **[통합된 전략을 실행하려면 리더들이 서로를 섀도잉해야 합니다.](https://hbr.org/2026/01/to-execute-a-unified-strategy-leaders-need-to-shadow-each-other)** - 체계적이고 확장 가능한 직원 섀도우잉 프로세스를 구현하기 위한 6단계입니다.
 
