@@ -11,7 +11,7 @@ https://springcoolers.github.io/llm-handbook/_contents/intro.html
 [이를 위한 도커 이미지](./docker/Dockerfile)를 제공하고 있습니다. 다음과 같이 먼저 해당 도커 이미지를 빌드해주세요.
 
 ```bash
-docker build --tag jb ./docker
+docker build -t jb -f docker/Dockerfile .
 ```
 
 도커 이미지가 빌드되었다면, 다음 명령어를 통해 빌드를 시작할 수 있습니다.
