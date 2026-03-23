@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import pypdf; print\\('pypdf available'\\)\" 2>&1 || python -c \"import PyPDF2; print\\('PyPDF2 available'\\)\" 2>&1 || python -c \"import pdfplumber; print\\('pdfplumber available'\\)\" 2>&1 || python -c \"import fitz; print\\('fitz available'\\)\" 2>&1)",
+      "Bash(pip install:*)",
+      "Bash(pip show:*)",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, 'C:/Users/Hankeol/AppData/Roaming/Python/Python314/site-packages'\\); import fitz; print\\('ok'\\)\")",
+      "Bash(python -c \"\nimport sys\nsys.path.insert\\(0, 'C:/Users/Hankeol/AppData/Roaming/Python/Python314/site-packages'\\)\nimport fitz\ndoc = fitz.open\\('C:/Users/Hankeol/Desktop/Dev/llm-handbook-for-nontech/AI Engineering.pdf'\\)\nprint\\(f'Total pages: {len\\(doc\\)}'\\)\ntoc = doc.get_toc\\(\\)\nprint\\('TOC entries:'\\)\nfor item in toc[:80]:\n    level, title, page = item\n    print\\(f'  Level {level} | Page {page:4d} | {title}'\\)\n\")",
+      "Bash(claude mcp:*)",
+      "mcp__notion__API-get-self",
+      "Bash(where python:*)",
+      "mcp__todoist__todoist_get_tasks",
+      "Skill(update-config)",
+      "WebFetch(domain:developer.todoist.com)",
+      "Bash(xargs grep:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\(''''mcpServers'''', {}\\), indent=2\\)\\)\")",
+      "mcp__todoist__find-tasks",
+      "Bash(python3:*)",
+      "Read(//c/Users/Hankeol/**)",
+      "Bash(python3 -c \"print\\(''hello''\\)\")",
+      "Bash(node:*)",
+      "Bash(mkdir -p _archive)",
+      "Bash(mv _contents/llm-engineering _archive/)",
+      "Bash(cd:*)",
+      "Bash(jb build:*)",
+      "Bash(jupyter-book build:*)",
+      "Bash(python -m pip list)",
+      "Bash(python -m jupyter_book --version)",
+      "Bash(python:*)",
+      "Bash(/c/Python314/python.exe -m jupyter_book build .)",
+      "Read(//c/Users/Hankeol/Desktop/Dev/llm-handbook-for-nontech/$USERPROFILE/AppData/Roaming/Python/Python314/**)",
+      "Bash(\"$USERPROFILE/AppData/Roaming/Python/Python314/Scripts/jupyter-book.exe\" build:*)"
+    ]
+  }
+}

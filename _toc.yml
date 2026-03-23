@@ -2,30 +2,35 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: _contents/intro
+root: _contents/000-Overview/index
+
 parts:
-- caption: Digest
+- caption: 101: Intro & AI Tools 입문
   chapters:
-  - file: _contents/digest/weeklynews/weeklynews.md 
-  - file: _contents/digest/patchnotes/patchnotes.md 
-
-- caption: LLM Engineering Basics
-  chapters:
-  - file: _contents/llm-engineering/AI Evaluation/AI Evaluation.md
+  - file: _contents/101-Intro-AI-Tools/index
     sections:
-    - glob: _contents/llm-engineering/AI Evaluation/sections/**
+    - glob: _contents/101-Intro-AI-Tools/sections/**
 
-    
-- caption: Newly Discovered
+- caption: 201: 고급 대화 기술
   chapters:
-  - file: _contents/llm-engineering/Newly Discovered/Newly Discovered.md
+  - file: _contents/201-Advanced-Conversation/index
     sections:
-    - glob: _contents/llm-engineering/Newly Discovered/sections/**
+    - glob: _contents/201-Advanced-Conversation/sections/**
 
-- caption: Newly Discovered - Case Study
+- caption: 301: Orchestration & Workflow
   chapters:
-  - file: _contents/llm-engineering/news/case-study/readme.md
+  - file: _contents/301-Orchestration-Workflows/index
     sections:
-    - glob: _contents/llm-engineering/news/case-study/sections/**
+    - glob: _contents/301-Orchestration-Workflows/sections/**
 
+- caption: 401: Agentic Workflow Roles
+  chapters:
+  - file: _contents/401-Agentic-Workflow-Roles/index
+    sections:
+    - glob: _contents/401-Agentic-Workflow-Roles/sections/**
 
+- caption: 501: AI Developer Transition
+  chapters:
+  - file: _contents/501-AI-Developer-Transition/index
+    sections:
+    - glob: _contents/501-AI-Developer-Transition/sections/**
