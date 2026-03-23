@@ -1,4 +1,9 @@
+_archive
 _build
+_bmad
+_bmad-output
+.claude
+scripts
 
 # Ignore the .obsidian directory
 _contents/.obsidian/
